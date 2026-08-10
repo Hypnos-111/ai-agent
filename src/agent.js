@@ -1,4 +1,4 @@
-// 匯入 OpenAI Agents SDK 嘅 Agent 類別同 run 函式。
+ // 匯入 OpenAI Agents SDK 嘅 Agent 類別同 run 函式。
 import { Agent, run } from "@openai/agents";
 
 // 匯入集中管理嘅 model 名稱。
@@ -16,11 +16,11 @@ const agent = new Agent({
   instructions: "Answer clearly and concisely.",
 });
 
-// 匯出一個函式，等其他模組可以將使用者訊息交畀 Agent。
-export async function runChatAgent(message) {
-  // 呼叫 OpenAI model，並等待完整 Agent 執行結果。
-  const agentResult = await run(agent, message);
+// 執行 Agent，並透過第三個參數將 session 交畀 Agents SDK。
+export async function runChatAgent(message, session) {
+  // SDK 會讀取呢個 session 嘅舊紀錄，完成後亦會保存今次對話。
+  const agentResult = await run(agent, message, { session });
 
-  // 只將 Agent 最終文字答案交返畀呼叫者。
+  // 只將 Agent 最終產生嘅文字答案交返畀呼叫者。
   return agentResult.finalOutput;
 }
