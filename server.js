@@ -13,7 +13,7 @@ import { sendJson } from "./src/http.js";
 // 建立 HTTP server，並為每個 request 執行以下 async callback。
 const server = http.createServer(async (request, response) => {
   // 檢查 request 係咪 POST /chat。
-  if (request.method === "POST" && request.url === "/chat") {
+  if (request.method === "POST" && request.url === "/") {
     // 將 chat request 交畀 chat 模組處理。
     await handleChat(request, response);
     return;
